@@ -1,0 +1,465 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  border-bottom: 1px solid #333;
+}
+
+.header h1 {
+  font-family: 'Cinzel Decorative', serif;
+  color: var(--accent-color);
+  font-size: 1.7rem;
+  text-shadow: 
+    0 0 2px rgba(249, 224, 224, 0.8),  /* Outer Red Glow */
+    0 0 4px rgba(255, 0, 0, 0.6),
+    0 0 6px rgba(247, 241, 241, 0.4),
+    -1px -1px 2px rgba(0, 0, 0, 0.9); /* Heavy Shadow */
+  letter-spacing: 2px;
+  font-weight: 400;
+  animation: flicker 11.9s infinite alternate;
+}
+@keyframes flicker {
+  0% { opacity: 1; text-shadow: 0 0 3px rgba(255, 0, 0, 0.9); }
+  50% { opacity: 0.8; text-shadow: 0 0 4px rgba(255, 0, 0, 0.7); }
+  100% { opacity: 1; text-shadow: 0 0 2px rgba(225, 50, 50, 0.8); }
+}
+
+.main {
+  flex: 1;
+  padding: 30px 0;
+}
+
+.footer {
+  text-align: center;
+  padding: 20px 0;
+  border-top: 1px solid #333;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+/* Auth components */
+.userSection {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.authButtons {
+  display: flex;
+  gap: 10px;
+}
+
+.loginButton, .logoutButton {
+  padding: 6px 12px;
+  font-size: 0.9rem;
+}
+
+.loginButton {
+  background-color: var(--accent-color); /* Gothic red */
+  color: rgb(216, 213, 213);
+  border: 1px solid var(--border-color);
+  font-weight: 10;
+  letter-spacing: 1px;
+  border-radius: 6px;
+  transition: background 0.2s ease, box-shadow 0.3s ease;
+}
+
+.loginButton:hover {
+  background-color: darkred;
+  box-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+}
+
+/* Book selection */
+.bookSelectionContainer {
+  text-align: center;
+}
+
+/* Main Subtitle (Choose a Gothic Character) */
+.bookSelectionTitle {
+  font-family: 'UnifrakturMaguntia', cursive;
+  font-size: 3.5rem;
+  /*color: var(--accent-color);*/
+  color: #f4f3dd;
+  /*text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+  letter-spacing: 1px;
+  font-weight: 400;*/
+  text-shadow:
+        -1px -1px 0 #04a0de,
+        2.5px 4px 1px #9b0101,
+        0 0 0 #1a1a1a,  
+        0 0.5px 0 #e9f903;
+  letter-spacing: 4px;
+  
+}
+
+.bookSelectionSubtitle {
+  font-size: 1.1rem;
+  color: #aaa;
+  margin-bottom: 40px;
+  letter-spacing: 1.5px;
+}
+
+.bookGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+/* Character Card Background & Hover */
+/* Book Cards */
+.bookCard {
+  position: relative;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+  height: 100%;
+  background-color: var(--background-color);
+}
+
+/* Hover Effect - Shadow */
+.bookCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(var(--shadow-color), 0.6);
+}
+
+
+/* Top Section - Image and Details */
+.bookCardTop {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 15px;
+  position: relative;
+}
+
+/* Character Image */
+.characterImage {
+  width: 100%;
+  height: 250px; /* Maintain Aspect Ratio */
+  object-fit: cover;
+  transition: filter 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+/* Dark Overlay (Initially Hidden) */
+.bookOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Darken on Hover */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+  text-align: center;
+  padding: 20px;
+}
+
+/* Description Text */
+.overlayText {
+  font-size: 1rem;
+  color: #ddd;
+  font-family: var(--font-main);
+  line-height: 1.5;
+  max-width: 90%;
+}
+
+
+/*.bookCover {
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}*/
+
+/* Gothic Style Initials (C, F) */
+/*.bookImagePlaceholder {
+  font-size: 4rem;
+  font-family: var(--gothic-font);
+  color: white;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.7);
+}*/
+
+.bookInfo {
+  padding: 15px;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Character Name (Count Dracula, Frankenstein's Monster) */
+.bookTitle {
+  font-family: var(--font-accent);
+  font-size: 1.8rem;
+  color: var(--text-color);
+  margin-top: 10px;
+  text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.8);
+}
+
+.bookSubtitle {
+  font-size: 1rem;
+  color: #999;
+  margin-bottom: 5px;
+  font-style: italic;
+}
+
+.bookAuthor {
+  font-size: 1rem;
+  color: #999;
+  margin-bottom: 15px;
+}
+
+/*.bookDescription {
+  font-family: var(--classic-font);
+  font-size: 1rem;
+  color: #bbb;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.6);
+  line-height: 1.6;
+}*/
+
+.bookMeta {
+  font-size: 0.9rem;
+  color: #bbb;
+}
+
+/* Bottom Section - Hidden Description (Appears on Hover) */
+.bookCardBottom {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 50%;  /* ✅ Hidden by default */
+  background-color: var(--hover-bg);  /* ✅ Dynamic hover background */
+  color: white;
+  opacity: 0;
+  transform: translateY(100%);
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+  padding: 15px;
+  text-align: center;
+}
+
+/* Hover Effect - Darkens Image & Shows Overlay */
+.bookCard:hover .characterImage {
+  filter: brightness(30%) contrast(120%);
+}
+
+.bookCard:hover .bookOverlay {
+  opacity: 1;
+}
+
+/* Show the description only when hovering over the lower half */
+.bookCard:hover .bookCardBottom {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/*.bookMetadata {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.8rem;
+  color: #777;
+}*/
+
+/* Chat interface */
+.chatContainer {
+  display: flex;
+  flex-direction: column;
+  height: 70vh;
+  border: 1px solid #333;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: #1a1a1a;
+}
+
+.chatHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+  border-bottom: 1px solid #333;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.chatTitle {
+  font-family: var(--font-accent);
+  text-align: center;
+  flex: 1;
+}
+
+.backButton {
+  padding: 6px 12px;
+  font-size: 0.9rem;
+}
+
+.chatOptions {
+  min-width: 120px;
+  text-align: right;
+}
+
+.modelSelector {
+  padding: 5px;
+  font-size: 0.8rem;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.messagesContainer {
+  flex: 1;
+  overflow-y: auto;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.message {
+  max-width: 80%;
+  padding: 12px 15px;
+  border-radius: 8px;
+  position: relative;
+}
+
+.userMessage {
+  align-self: flex-end;
+  background-color: #2d2d2d;
+  border-bottom-right-radius: 0;
+}
+
+.aiMessage {
+  align-self: flex-start;
+  background-color: rgba(0, 0, 0, 0.5);
+  border: 1px solid #444;
+  border-bottom-left-radius: 0;
+}
+
+.errorMessage {
+  border-color: #900 !important;
+  background-color: rgba(153, 0, 0, 0.1) !important;
+}
+
+.messageContent {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  word-break: break-word;
+}
+
+.messageTime {
+  font-size: 0.7rem;
+  color: #777;
+  margin-top: 5px;
+  text-align: right;
+}
+
+.loadingMessage {
+  padding: 15px;
+}
+
+.typingIndicator {
+  display: flex;
+  gap: 5px;
+}
+
+.typingIndicator span {
+  width: 8px;
+  height: 8px;
+  background-color: #666;
+  border-radius: 50%;
+  display: inline-block;
+  animation: typing 1.4s infinite ease-in-out both;
+}
+
+.typingIndicator span:nth-child(1) {
+  animation-delay: 0s;
+}
+
+.typingIndicator span:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.typingIndicator span:nth-child(3) {
+  animation-delay: 0.4s;
+}
+
+@keyframes typing {
+  0%, 80%, 100% { transform: scale(0.7); opacity: 0.5; }
+  40% { transform: scale(1); opacity: 1; }
+}
+
+.inputContainer {
+  display: flex;
+  padding: 15px;
+  gap: 10px;
+  border-top: 1px solid #333;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.chatInput {
+  flex: 1;
+  min-height: 50px;
+  max-height: 100px;
+  resize: none;
+  padding: 10px;
+  font-size: 0.95rem;
+  border-radius: 5px;
+}
+
+.sendButton {
+  align-self: flex-end;
+  height: 50px;
+  padding: 0 20px;
+  font-size: 1rem;
+}
+
+/* Loading and error states */
+.loadingContainer, .errorContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 50vh;
+  gap: 20px;
+}
+
+.loadingContainer:after {
+  content: "";
+  width: 40px;
+  height: 40px;
+  border: 5px solid #333;
+  border-top-color: var(--accent-color);
+  border-radius: 50%;
+  animation: loading 1s infinite linear;
+}
+
+@keyframes loading {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .bookGrid {
+    grid-template-columns: 1fr;
+  }
+  
+  .message {
+    max-width: 90%;
+  }
+  
+  .chatContainer {
+    height: 80vh;
+  }
+}
