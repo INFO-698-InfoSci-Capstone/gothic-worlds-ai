@@ -22,7 +22,8 @@ if (!process.env.JWT_SECRET && process.env.NODE_ENV !== 'development') {
 }
 
 const app = express();
-const PORT = 5000;
+const PORT = parseInt(process.env.PORT || '5000', 10);
+// const PORT = 5000;
 
 connectDB();
 

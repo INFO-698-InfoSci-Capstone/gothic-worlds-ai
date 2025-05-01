@@ -1,4 +1,8 @@
 #!/usr/bin/env bash
+set -a
+source .env
+set +a
+
 #
 # start.sh
 #
@@ -17,13 +21,13 @@
 ###################################
 # 1) Kill processes on port 5000 & 3000 (Optional)
 ###################################
-echo "Killing processes on port 5000..."
-PIDS_5000=$(lsof -ti :5000 2>/dev/null)  # Mac/Linux command to find PIDs on port 5000
+echo "Killing processes on port $PORT..."
+PIDS_5000=$(lsof -ti :$PORT 2>/dev/null)  # Mac/Linux command to find PIDs on port 5000
 if [ -n "$PIDS_5000" ]; then
   kill -9 $PIDS_5000
-  echo "Killed processes on port 5000."
+  echo "Killed processes on port $PORT."
 else
-  echo "No processes running on port 5000."
+  echo "No processes running on port $PORT."
 fi
 
 echo "Killing processes on port 3000..."
@@ -76,7 +80,7 @@ FRONTEND_PID=$!
 ###################################
 echo "========================================="
 echo "Narrator AI is running!"
-echo "Backend:  http://localhost:5000"
+echo "Backend:  http://localhost:$PORT"
 echo "Frontend: http://localhost:3000"
 echo "========================================="
 echo "Press [ENTER] to stop all servers..."
@@ -90,7 +94,7 @@ echo "Stopping Narrator AI..."
 # Send SIGTERM (default) to each process
 kill "$BACKEND_PID" "$FRONTEND_PID"
 
-# Wait for them to exit
+# Wait for them to exiti
 wait "$BACKEND_PID" "$FRONTEND_PID" 2>/dev/null
 
 echo "All servers stopped gracefully."

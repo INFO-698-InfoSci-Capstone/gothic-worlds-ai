@@ -1,12 +1,19 @@
 @echo off
-echo Checking for existing processes on port 5000...
+setlocal enabledelayedexpansion
+
+REM === Load environment variables from .env file at root ===
+for /f "usebackq tokens=1,2 delims==" %%i in (".env") do (
+    set "%%i=%%j"
+)
+
+echo Checking for existing processes on port %PORT%...
 setlocal enabledelayedexpansion
 set "pids="
-for /f "tokens=5" %%a in ('netstat -ano ^| findstr :5000') do (
+for /f "tokens=5" %%a in ('netstat -ano ^| findstr :%PORT%') do (
     if not "%%a"=="0" set "pids=!pids! %%a"
 )
 for %%a in (!pids!) do (
-    echo Found process %%a on port 5000. Killing...
+    echo Found process %%a on port %PORT%. Killing...
     taskkill /PID %%a /F >nul 2>&1 && echo Process %%a terminated. || echo Process %%a was not running.
 )
 endlocal
@@ -45,7 +52,7 @@ start "Frontend" cmd /c "cd frontend && npm run dev"
 
 echo ====================================
 echo       Narrator AI is running!
-echo Backend: http://localhost:5000
+echo Backend: http://localhost:%PORT%
 echo Frontend: http://localhost:3000
 echo ====================================
 echo Press any key to stop all servers...

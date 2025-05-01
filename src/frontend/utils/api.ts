@@ -1,5 +1,11 @@
 import axios from 'axios';
 import DEMO_CHARACTERS from '../data/demoCharacters';
+import dotenv from 'dotenv';
+
+// Load environment variables from .env (located at the project root)
+dotenv.config({ path: '../../.env', override: true });
+
+const PORT = parseInt(process.env.PORT || '5000', 10);
 
 export const fetchCharacters = async (
   setCharacters: (characters: any[]) => void,
@@ -7,7 +13,7 @@ export const fetchCharacters = async (
 ) => {
   try {
     setIsLoading(true);
-    const response = await axios.get("http://localhost:5000/api/characters");
+    const response = await axios.get(`http://localhost:${PORT}/api/characters`);
     console.log("API Response:", response.data);
     if (response.data && response.data.length > 0) {
       setCharacters(response.data);
