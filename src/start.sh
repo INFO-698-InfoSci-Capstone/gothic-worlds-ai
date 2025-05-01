@@ -6,11 +6,11 @@ set +a
 #
 # start.sh
 #
-# 1) Kills any processes on ports 5000 & 3000
+# 1) Kills any processes on ports 5000 & $FRONTEND_PORT
 # 2) Removes the .next folder (if any) in frontend/
 # 3) Starts the backend (listening on port 5000)
 # 4) Waits 2 seconds
-# 5) Starts the frontend (listening on port 3000)
+# 5) Starts the frontend (listening on port $FRONTEND_PORT)
 # 6) Waits for user input
 # 7) Gracefully kills the two Node processes it started
 #
@@ -19,24 +19,24 @@ set +a
 #   ./start.sh
 
 ###################################
-# 1) Kill processes on port 5000 & 3000 (Optional)
+# 1) Kill processes on port 5000 & $FRONTEND_PORT (Optional)
 ###################################
-echo "Killing processes on port $PORT..."
-PIDS_5000=$(lsof -ti :$PORT 2>/dev/null)  # Mac/Linux command to find PIDs on port 5000
+echo "Killing processes on port $BACKEND_PORT..."
+PIDS_5000=$(lsof -ti :$BACKEND_PORT 2>/dev/null)  # Mac/Linux command to find PIDs on port 5000
 if [ -n "$PIDS_5000" ]; then
   kill -9 $PIDS_5000
-  echo "Killed processes on port $PORT."
+  echo "Killed processes on port $BACKEND_PORT."
 else
-  echo "No processes running on port $PORT."
+  echo "No processes running on port $BACKEND_PORT."
 fi
 
-echo "Killing processes on port 3000..."
-PIDS_3000=$(lsof -ti :3000 2>/dev/null)
+echo "Killing processes on port $FRONTEND_PORT..."
+PIDS_3000=$(lsof -ti :$FRONTEND_PORT 2>/dev/null)
 if [ -n "$PIDS_3000" ]; then
   kill -9 $PIDS_3000
-  echo "Killed processes on port 3000."
+  echo "Killed processes on port $FRONTEND_PORT."
 else
-  echo "No processes running on port 3000."
+  echo "No processes running on port $FRONTEND_PORT."
 fi
 
 ###################################
@@ -80,8 +80,8 @@ FRONTEND_PID=$!
 ###################################
 echo "========================================="
 echo "Narrator AI is running!"
-echo "Backend:  http://localhost:$PORT"
-echo "Frontend: http://localhost:3000"
+echo "Backend:  $BACKEND_HOST:$BACKEND_PORT"
+echo "Frontend: $FRONTEND_HOST:$FRONTEND_PORT"
 echo "========================================="
 echo "Press [ENTER] to stop all servers..."
 read -r

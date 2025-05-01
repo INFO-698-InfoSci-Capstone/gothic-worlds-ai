@@ -6,26 +6,26 @@ for /f "usebackq tokens=1,2 delims==" %%i in (".env") do (
     set "%%i=%%j"
 )
 
-echo Checking for existing processes on port %PORT%...
+echo Checking for existing processes on port %BACKEND_PORT%...
 setlocal enabledelayedexpansion
 set "pids="
-for /f "tokens=5" %%a in ('netstat -ano ^| findstr :%PORT%') do (
+for /f "tokens=5" %%a in ('netstat -ano ^| findstr :%BACKEND_PORT%') do (
     if not "%%a"=="0" set "pids=!pids! %%a"
 )
 for %%a in (!pids!) do (
-    echo Found process %%a on port %PORT%. Killing...
+    echo Found process %%a on port %BACKEND_PORT%. Killing...
     taskkill /PID %%a /F >nul 2>&1 && echo Process %%a terminated. || echo Process %%a was not running.
 )
 endlocal
 
-echo Checking for existing processes on port 3000...
+echo Checking for existing processes on port %FRONTEND_PORT%...
 setlocal enabledelayedexpansion
 set "pids="
-for /f "tokens=5" %%a in ('netstat -ano ^| findstr :3000') do (
+for /f "tokens=5" %%a in ('netstat -ano ^| findstr :%FRONTEND_PORT%') do (
     if not "%%a"=="0" set "pids=!pids! %%a"
 )
 for %%a in (!pids!) do (
-    echo Found process %%a on port 3000. Killing...
+    echo Found process %%a on port %FRONTEND_PORT%. Killing...
     taskkill /PID %%a /F >nul 2>&1 && echo Process %%a terminated. || echo Process %%a was not running.
 )
 endlocal
@@ -52,8 +52,8 @@ start "Frontend" cmd /c "cd frontend && npm run dev"
 
 echo ====================================
 echo       Narrator AI is running!
-echo Backend: http://localhost:%PORT%
-echo Frontend: http://localhost:3000
+echo Backend: %BACKEND_HOST%:%BACKEND_PORT%
+echo Frontend: %FRONTEND_HOST%:%FRONTEND_PORT%
 echo ====================================
 echo Press any key to stop all servers...
 

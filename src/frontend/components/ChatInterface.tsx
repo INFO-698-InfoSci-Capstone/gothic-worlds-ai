@@ -17,7 +17,7 @@ import dotenv from 'dotenv';
 // Load environment variables from .env (located at the project root)
 dotenv.config({ path: '../../.env', override: true });
 
-const PORT = parseInt(process.env.PORT || '5000', 10);
+const BACKEND_PORT = parseInt(process.env.BACKEND_PORT || '5000', 10);
 
 interface ChatInterfaceProps {
   character: Character;
@@ -38,7 +38,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ character, onBack, user }
   useEffect(() => {
     const checkBackendStatus = async () => {
       try {
-        await axios.get(`http://localhost:${PORT}/api/health`);
+        await axios.get(`http://localhost:${BACKEND_PORT}/api/health`);
         setErrorMessage(null);
       } catch (error) {
         setErrorMessage('Backend is offline. Ensure the server is running.');
@@ -52,7 +52,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ character, onBack, user }
   useEffect(() => {
     const fetchOllamaModels = async () => {
       try {
-        const response = await axios.get(`http://localhost:${PORT}/api/ollama-models`);
+        const response = await axios.get(`http://localhost:${BACKEND_PORT}/api/ollama-models`);
         setOllamaModels(response.data.models || []);
       } catch (error) {
         console.error('Error fetching Ollama models:', error);
@@ -105,7 +105,7 @@ const ChatInterface: React.FC<ChatInterfaceProps> = ({ character, onBack, user }
     }
 
     try {
-      const response = await axios.post(`http://localhost:${PORT}/api/chat`, {
+      const response = await axios.post(`http://localhost:${BACKEND_PORT}/api/chat`, {
         message: currentMessage,
         characterId: character.id,
         modelProvider: selectedModel,
