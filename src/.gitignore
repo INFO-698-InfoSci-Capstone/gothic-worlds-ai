@@ -8,7 +8,7 @@ backend/node_modules/
 out/
 
 # Ignore environment variables (API keys, secrets)
-.env
+# .env
 .env.local
 .env.development
 .env.production
