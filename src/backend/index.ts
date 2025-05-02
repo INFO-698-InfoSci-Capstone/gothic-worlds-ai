@@ -15,6 +15,7 @@ import { checkOllamaAvailability, fetchOllamaModels } from './services/aiService
 // Load environment variables from .env (located at the project root)
 dotenv.config({ path: '../.env', override: true });
 
+
 // Check for JWT_SECRET in non-development environments
 if (!process.env.JWT_SECRET && process.env.NODE_ENV !== 'development') {
   console.error("JWT_SECRET is not set in the environment");
@@ -30,9 +31,8 @@ connectDB();
 // Middleware
 app.use(
   cors({
-    origin: process.env.ALLOWED_ORIGINS
-      ? process.env.ALLOWED_ORIGINS.split(',')
-      : [`${process.env.FRONTEND_HOST}:${process.env.FRONTEND_PORT}`],
+    // origin: process.env.ALLOWED_ORIGINS ? process.env.ALLOWED_ORIGINS.split(',') : [`${process.env.FRONTEND_HOST}:${process.env.FRONTEND_PORT}`],
+    origin: `${process.env.FRONTEND_HOST}:${process.env.FRONTEND_PORT}`,
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
   })
