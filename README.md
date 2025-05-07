@@ -23,6 +23,14 @@ Gothic-Worlds-Ai/
 │   ├── backend/                   # Express.js backend
 │   ├── frontend/                  # Next.js frontend
 │   ├── data/                      # Raw and derived datasets
+│   ├── deception_api_project/     # Flask API for deception scoring
+│   │   ├── app/
+│   │   ├── models/
+│   │   ├── logs/
+│   │   ├── .env
+│   │   ├── run.py
+│   │   ├── requirements.txt
+│   │   └── README.md
 │   ├── .env                       # Environment variables
 │   ├── .gitignore                 # Ignore rules for this subdir
 │   ├── start.bat                  # Windows launch script
@@ -117,6 +125,41 @@ Backend should be running on `http://localhost:5000` if you specify same in `.en
   npm run dev
   ```
 Frontend should be running on `http://localhost:3000` if you specify same in `.env`
+
+---
+
+## 🧠 Deception Score API (Subproject)
+The Deception Score API is a Flask-based microservice that uses a trained machine learning model to analyze a sentence and return a deception score.
+
+🔹 Features:
+
+RESTful API with `/predict` endpoint \
+Pretrained model using `scikit-learn` \
+Logs all requests and predictions \
+Runs as a background process with `nohup`
+
+🔹 How to Use:
+```
+# change dir to deception score api dir
+cd deception_api_project
+
+# Run server in background
+nohup python run.py > logs/flask_server.log 2>&1 &
+
+# Check if it's running
+curl http://localhost:5000/
+
+# Predict deception score
+curl -X POST http://localhost:5000/predict \
+     -H "Content-Type: application/json" \
+     -d '{"text": "I swear I never touched that cookie jar!"}'
+```
+
+🔹 Output Example:
+```
+{ "deception_score": 0.87 }
+```
+For detailed setup and structure, see the `deception_api_project/README.md`.
 
 ---
 
