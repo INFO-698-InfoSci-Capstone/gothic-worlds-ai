@@ -45,3 +45,6 @@ backend/node_modules/@next/swc-win32-x64-msvc/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+
+
+*pyc
